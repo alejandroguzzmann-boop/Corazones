@@ -1,0 +1,80 @@
+html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Corazones flotando</title>
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .heart {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #ff4fd8;
+    border-radius: 50% 50% 0 0;
+    transform: rotate(-45deg);
+    background: transparent;
+    box-shadow: 0 0 10px #ff4fd8, 0 0 20px #ff4fd8, 0 0 30px #ff4fd8;
+    animation: float 6s linear infinite;
+  }
+
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #ff4fd8;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: 0 0 10px #ff4fd8, 0 0 20px #ff4fd8, 0 0 30px #ff4fd8;
+  }
+
+  .heart::before {
+    top: -20px;
+    left: 0;
+  }
+
+  .heart::after {
+    left: 20px;
+    top: 0;
+  }
+
+  @keyframes float {
+    0% {
+      bottom: -60px;
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      bottom: 110vh;
+      opacity: 0;
+      transform: rotate(-45deg) translateX(100px);
+    }
+  }
+</style>
+</head>
+<body>
+<script>
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = 4 + Math.random() * 4 + 's';
+    heart.style.transform = `rotate(-45deg) scale(${0.5 + Math.random() * 0.8})`;
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 8000);
+  }
+
+  setInterval(createHeart, 300);
+</script>
+</body>
+</html>
